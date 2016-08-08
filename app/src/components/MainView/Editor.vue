@@ -6,7 +6,7 @@
     margin: 0;
     overflow-y: auto;
     padding: 20px;
-    width: (100% / 12) * 8;
+    width: (100% / 12) * 9;
   }
 
   .left,

@@ -36,7 +36,7 @@
 <template>
   <div class="ribbon">
     <ul class="actions">
-      <li><i class="fa fa-folder-open-o"></i></li>
+      <li><i class="fa fa-folder-open-o" @click="openFolder"></i></li>
       <li><i class="fa fa-save"></i></li>
       <li><i class="fa fa-question"></i></li>
     </ul>
@@ -44,6 +44,46 @@
 </template>
 
 <script>
+  import {
+    setDirectory,
+    setFilePaths
+  } from 'src/vuex/actions'
+  import { remote } from 'electron'
+  import nodeDir from 'node-dir'
+  const dialog = remote.dialog
+
   export default {
+    methods: {
+      openFolder () {
+        dialog.showOpenDialog({
+          title: 'What folder is your music saved in?',
+          properties: ['openDirectory']
+        }, directory => {
+          this.setDirectory(directory[0])
+          nodeDir.files(directory[0], (err, paths) => {
+            if (err) console.error(err)
+            else {
+              paths = paths.filter(file => /\.mp3$|\.m4a$|\.ogg$|\.flac$/.test(file))
+
+              let index = []
+              for (let i = 0; i < paths.length; i++) {
+                index.push({
+                  path: paths[i],
+                  selected: false
+                })
+              }
+
+              this.setFilePaths(index)
+            }
+          })
+        })
+      }
+    },
+    vuex: {
+      actions: {
+        setDirectory,
+        setFilePaths
+      }
+    }
   }
 </script>

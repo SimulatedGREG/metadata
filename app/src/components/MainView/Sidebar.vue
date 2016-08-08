@@ -3,7 +3,7 @@
     background-color: #f7fbff;
     float: left;
     height: 100%;
-    width: (100% / 12) * 4;
+    width: (100% / 12) * 3;
   }
 </style>
 

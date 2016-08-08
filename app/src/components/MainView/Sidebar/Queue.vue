@@ -12,6 +12,7 @@
   }
 
   li {
+    font-size: 14px;
     overflow-x: hidden;
     padding: 20px;
     text-overflow: ellipsis;
@@ -29,14 +30,29 @@
 
 <template>
   <ul class="queue">
-    <li>MyCoolSong.mp3</li>
-    <li class="selected">MyCoolSong.mp3</li>
-    <li>MyCoolSong.mp3</li>
-    <li>MyCoolSong.mp3</li>
+    <li
+      v-for="path in filePaths"
+      :class="{ 'selected': path.selected }"
+      @click="togglePathSelection(path.path)">
+      {{ path.path | filename }}
+    </li>
   </ul>
 </template>
 
 <script>
+  import { togglePathSelection } from 'src/vuex/actions'
+  import { filePaths } from 'src/vuex/getters'
+
   export default {
+    filters: {
+      filename (path) {
+        let split = path.split('/')
+        return split[split.length - 1]
+      }
+    },
+    vuex: {
+      actions: { togglePathSelection },
+      getters: { filePaths }
+    }
   }
 </script>
