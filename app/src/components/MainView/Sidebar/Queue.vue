@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  import { setSelection } from 'src/vuex/actions'
   import { filePaths } from 'src/vuex/getters'
 
   export default {
@@ -45,11 +46,12 @@
       }
     },
     vuex: {
+      actions: { setSelection },
       getters: { filePaths }
     },
     watch: {
       'fileSelection' (val) {
-        this.$log('fileSelection')
+        this.setSelection(val)
       }
     }
   }
