@@ -1,49 +1,43 @@
 <style lang="scss" scoped>
-  ul,
-  li {
-    margin: 0;
-    padding: 0;
-  }
-
-  ul {
+  select {
+    border: 0;
     height: calc(100% - 40px);
-    list-style-type: none;
+    outline: none;
     overflow-y: auto;
+    width: 100%;
   }
 
-  li {
+  option {
     font-size: 14px;
     overflow-x: hidden;
     padding: 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    &:hover,
-    &.selected {
+    &:hover {
       cursor: pointer;
       background-color: rgba(#000, .04);
     }
 
-    &.selected { font-weight: bold; }
+    &:focus { outline: none; }
   }
 </style>
 
 <template>
-  <ul class="queue">
-    <li
-      v-for="path in filePaths"
-      :class="{ 'selected': path.selected }"
-      @click="togglePathSelection(path.path)">
-      {{ path.path | filename }}
-    </li>
-  </ul>
+  <select v-model="fileSelection" multiple>
+    <option v-for="path in filePaths">
+      {{ path | filename }}
+    </option>
+  </select>
 </template>
 
 <script>
-  import { togglePathSelection } from 'src/vuex/actions'
   import { filePaths } from 'src/vuex/getters'
 
   export default {
+    data () {
+      return { fileSelection: [] }
+    },
     filters: {
       filename (path) {
         let split = path.split('/')
@@ -51,8 +45,12 @@
       }
     },
     vuex: {
-      actions: { togglePathSelection },
       getters: { filePaths }
+    },
+    watch: {
+      'fileSelection' (val) {
+        this.$log('fileSelection')
+      }
     }
   }
 </script>

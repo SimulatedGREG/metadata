@@ -9,6 +9,5 @@ export const setFilePaths = ({ dispatch }, paths) => {
 }
 
 export const togglePathSelection = ({ dispatch }, path) => {
-  console.log(path, 'actions')
   dispatch(types.TOGGLE_PATH_SELECTION, path)
 }

@@ -104,9 +104,13 @@
 </template>
 
 <script>
+  import { selectedPaths } from 'src/vuex/getters'
   import FileMetadata from './Editor/FileMetadata'
 
   export default {
-    components: { FileMetadata }
+    components: { FileMetadata },
+    vuex: {
+      getters: { selectedPaths }
+    }
   }
 </script>

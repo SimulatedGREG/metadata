@@ -63,17 +63,9 @@
           nodeDir.files(directory[0], (err, paths) => {
             if (err) console.error(err)
             else {
-              paths = paths.filter(file => /\.mp3$|\.m4a$|\.ogg$|\.flac$/.test(file))
-
-              let index = []
-              for (let i = 0; i < paths.length; i++) {
-                index.push({
-                  path: paths[i],
-                  selected: false
-                })
-              }
-
-              this.setFilePaths(index)
+              this.setFilePaths(
+                paths.filter(file => /\.mp3$|\.m4a$|\.ogg$|\.flac$/.test(file))
+              )
             }
           })
         })

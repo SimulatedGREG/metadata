@@ -5,3 +5,7 @@ export function directory (state) {
 export function filePaths (state) {
   return state.queue.filePaths
 }
+
+export function selectedPaths (state) {
+  return state.queue.filePaths.filter(p => p.selected)
+}
