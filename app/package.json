@@ -6,6 +6,7 @@
   "dependencies": {
     "ffmetadata": "^1.4.0",
     "font-awesome": "^4.6.3",
+    "lodash": "^4.14.2",
     "node-dir": "^0.1.15",
     "vue": "^1.0.24",
     "vue-electron": "^1.0.0",

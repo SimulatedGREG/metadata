@@ -104,13 +104,38 @@
 </template>
 
 <script>
-  import { selectedPaths } from 'src/vuex/getters'
+  import {
+    metadata,
+    selectedPaths
+  } from 'src/vuex/getters'
   import FileMetadata from './Editor/FileMetadata'
+  // import { map, uniq } from 'lodash'
 
   export default {
     components: { FileMetadata },
+    computed: {
+      currentMetadata () {
+        let metadata = []
+        for (let i = 0; i < this.selectedPaths.length; i++) {
+          metadata.push(this.metadata[this.selectedPaths[i]])
+        }
+
+        return metadata
+      },
+      editorMetadata () {
+
+      }
+    },
+    methods: {
+      parseField (field) {
+        // return _
+      }
+    },
     vuex: {
-      getters: { selectedPaths }
+      getters: {
+        metadata,
+        selectedPaths
+      }
     }
   }
 </script>

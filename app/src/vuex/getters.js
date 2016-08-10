@@ -6,6 +6,10 @@ export function filePaths (state) {
   return state.queue.filePaths
 }
 
+export function metadata (state) {
+  return state.queue.metadata
+}
+
 export function selectedPaths (state) {
-  return state.queue.filePaths.filter(p => p.selected)
+  return state.queue.selection
 }

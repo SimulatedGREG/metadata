@@ -25,7 +25,7 @@
 
 <template>
   <select v-model="fileSelection" multiple>
-    <option v-for="path in filePaths">
+    <option v-for="path in filePaths" :value="path">
       {{ path | filename }}
     </option>
   </select>
@@ -51,7 +51,14 @@
     },
     watch: {
       'fileSelection' (val) {
-        this.setSelection(val)
+        let indices = []
+        for (let i = 0; i < val.length; i++) {
+          indices.push(
+            this.filePaths.indexOf(val[i])
+          )
+        }
+
+        this.setSelection(indices)
       }
     }
   }
