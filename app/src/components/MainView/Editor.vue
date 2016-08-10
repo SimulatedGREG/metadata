@@ -69,31 +69,31 @@
     <div class="left">
       <div class="input-group">
         <label for="song-title">Title</label>
-        <input id="song-title" type="text">
+        <input id="song-title" v-model="editorMetadata.title" type="text">
       </div>
       <div class="input-group">
         <label for="song-artist">Artist</label>
-        <input id="song-artist" type="text">
+        <input id="song-artist" v-model="editorMetadata.artist" type="text">
       </div>
       <div class="input-group">
         <label for="song-album-artist">Album Artist</label>
-        <input id="song-album-artist" type="text">
+        <input id="song-album-artist" v-model="editorMetadata.album_artist" type="text">
       </div>
       <div class="input-group">
         <label for="song-album">Album</label>
-        <input id="song-album" type="text">
+        <input id="song-album" v-model="editorMetadata.album" type="text">
       </div>
       <div class="input-group">
-        <label for="song-year">Year</label>
-        <input id="song-year" type="text">
+        <label for="song-date">Year</label>
+        <input id="song-date" v-model="editorMetadata.date" type="text">
       </div>
       <div class="input-group">
         <label for="song-genre">Genre</label>
-        <input id="song-genre" type="text">
+        <input id="song-genre" v-model="editorMetadata.genre" type="text">
       </div>
       <div class="input-group">
         <label for="song-track">Track #</label>
-        <input id="song-track" type="number">
+        <input id="song-track" v-model="editorMetadata.track" type="text">
       </div>
     </div>
     <div class="right">
@@ -109,7 +109,7 @@
     selectedPaths
   } from 'src/vuex/getters'
   import FileMetadata from './Editor/FileMetadata'
-  // import { map, uniq } from 'lodash'
+  import { map, uniq } from 'lodash'
 
   export default {
     components: { FileMetadata },
@@ -123,12 +123,30 @@
         return metadata
       },
       editorMetadata () {
+        let blob = {}
+        let fields = [
+          'title',
+          'artist',
+          'album_artist',
+          'album',
+          'date',
+          'genre',
+          'track'
+        ]
 
+        for (let i = 0; i < fields.length; i++) {
+          blob[fields[i]] = this.parseField(fields[i])
+        }
+
+        console.log(blob)
+
+        return blob
       }
     },
     methods: {
       parseField (field) {
-        // return _
+        let f = uniq(map(this.currentMetadata, field))
+        return f.length === 1 ? f[0] : 'Multiple Values'
       }
     },
     vuex: {
